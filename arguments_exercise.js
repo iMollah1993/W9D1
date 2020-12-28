@@ -75,3 +75,21 @@ function curriedSum(numArgs) {
     return _curriedSum
 };
 
+//function.prototype.curry
+
+Function.prototype.curry = function(numArgs) {
+    const fn = this;
+    let numbers = [];
+
+   function _sum(num) {
+       if (numbers.length < numArgs - 1) {
+           return _sum;
+       } else {
+          return fn;
+       }
+   }
+}
+
+
+
+
