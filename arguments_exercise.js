@@ -77,17 +77,57 @@ function curriedSum(numArgs) {
 
 //function.prototype.curry
 
+//spread
 Function.prototype.curry = function(numArgs) {
     const fn = this;
     let numbers = [];
 
    function _sum(num) {
-       if (numbers.length < numArgs - 1) {
-           return _sum;
+       numbers.push(num); 
+       if (numbers.length === numArgs) {
+           return fn(...numbers);
        } else {
-          return fn;
+          return _sum;
        }
    }
+
+   return _sum;
+}
+
+//regular 
+
+Function.prototype.curry = function(numArgs) {
+    const fn = this;
+    let numbers = [];
+
+   function _sum(num) {
+       numbers.push(num); 
+       if (numbers.length === numArgs) {
+           return this(...numbers);
+       } else {
+          return _sum;
+       }
+   }
+
+   return _sum;
+}
+
+//apply
+Function.prototype.curry = function(numArgs) {
+    const fn = this;
+    let numbers = [];
+
+   function _sum(num) {
+       numbers.push(num); 
+       if (numbers.length === numArgs) {
+           // can we use 'this' instead of 'fn'?
+           return fn.apply(null, numbers);
+       } else {
+          return _sum;
+       }
+   }
+
+   return _sum;
 }
 
 
