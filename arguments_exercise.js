@@ -12,12 +12,13 @@ function sum(...callArgs) {
 //this is the bind function.
 Function.prototype.myBind = function (ctx, ...bindArgs) {
     const fn = this;
+    //useful when user wants to include callbacks.
+    return function (...callArgs) {
+        return fn.apply(ctx, bindArgs.concat(callArgs));
+    };
 
-    // // return function (...callArgs) {
-    //     return fn.apply(ctx, bindArgs.concat(callArgs));
-    // };\
-
-    return fn.apply(ctx, ...bindArgs);
+    //will work as a regular bind without callbacks.
+    // return fn.apply(ctx, bindArgs);
 };
 
 class Cat {
